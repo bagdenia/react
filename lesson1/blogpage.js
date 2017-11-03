@@ -1,19 +1,54 @@
 const { DOM, PropTypes } = React;
 const { bind } = _;
 
+const formatDate = (date) => moment(date).format('DD-MM-YYYY')
+
+
 const posts = [
-  { name: 'Fedya', src: 'https://pp.userapi.com/c639828/v639828889/58af6/wrl1B46fCuE.jpg' },
-  { count: 5, date_crtd: moment().add(-1, 'days').format('DD-MM-YYYY'), text: 'number' },
-  { date_upd: moment().add(5, 'days').format('DD-MM-YYYY'), text: 'test', count: 12 }
+  { 
+   image: {
+     src: 'https://pp.userapi.com/c639828/v639828889/58af6/wrl1B46fCuE.jpg',
+     alt: 'hi kitty'
+   },
+   meta: {
+    name: 'Fedya', 
+    likes: 4,
+    dateCreated: formatDate('2017-10-02')
+   }
+  },
+  { 
+   image: {
+     alt: 'hi kitty'
+   },
+   meta: {
+    name: 'Vasya', 
+    likes: 7,
+    dateCreated: formatDate('2017-09-07')
+   },
+   text: 'Bye all'
+  },
+  { 
+   image: {
+     src: 'https://pp.userapi.com/c405931/v405931356/39f/GWhaMm1iBVo.jpg',
+     alt: 'hi kitty'
+   },
+   meta: {
+    name: 'MAsha', 
+    dateCreated: formatDate('2017-09-07')
+   },
+   text: 'Nice day for'
+  }
  ];
 
-const Img = ({src, height, width, alt, ind}) => (
-  <img src = { src } height = { height } width = {width } alt = { alt ? alt + ind : `img${ ind }` } />
+
+const Img = ({ src, height, width, alt }) => (
+  DOM.img({ src, height, width, alt })
 );
 
 Img.defaultProps = {
   src: 'https://pp.userapi.com/c5641/u5790356/134714790/x_d1448a03.jpg',
-  width: 200
+  width: 200,
+  alt: 'default alt'
 };
 
 Img.propTypes = {
@@ -23,55 +58,55 @@ Img.propTypes = {
   alt: PropTypes.string
 };
 
-const TextBox = ({text}) => (
+const TextBox = (props) => (
   DOM.span(
     null,
-    text != 'test' ? text : 'SuperTest'
+    props.children
   )
 ); 
 
 TextBox.defaultProps = {
-  text: 'Bum'
+  children: 'Wat?'
 };
 
 TextBox.propTypes = {
-  text: PropTypes.string
+  children: PropTypes.string
 };
 
-const Metax = ({name, date_crtd, date_upd}) => (
+const Meta = ({ name, dateCreated, dateUpdated }) => (
   DOM.p(
     null,
-    `Created by ${ name } at ${ date_crtd }, last modified at ${ date_upd }`)
+    `Created by ${name} at ${dateCreated}, last modified at ${dateUpdated}`)
 );
 
-Metax.defaultProps = {
+Meta.defaultProps = {
   name: 'Vasya',
-  date_crtd: moment().format('DD-MM-YYYY'),
-  date_upd: moment().add(3, 'days').format('DD-MM-YYYY')
+  dateCreated: formatDate('2017-10-01'),
+  dateUpdated: formatDate('2017-10-04')
 };
 
-Metax.propTypes = {
+Meta.propTypes = {
   name: PropTypes.string,
-  date_crtd: PropTypes.string,
-  date_upd: PropTypes.string
+  dateCreated: PropTypes.string,
+  dateUpdated: PropTypes.string
 };
 
 class Like extends React.Component {
   constructor(props){
    super(props);
-   this.state = { count: props.count };
+   this.state = { likes: props.likes };
    this.handleLike = bind(this.processLike, this);
   }
   
   processLike(e){
-   this.setState({ count: this.state.count + 1 });
+   this.setState({ likes: this.state.likes + 1 });
   }
   
   render(){
    return(
     <div>
-     <span>Count: {this.state.count}</span>
-     <button onClick={ this.handleLike }> Like </button>
+     <span>Count: { this.state.likes }</span>
+     <button onClick={this.handleLike}>Like</button>
     </div>
    ) 
   }
@@ -79,11 +114,11 @@ class Like extends React.Component {
 };
 
 Like.defaultProps = {
- count: 0
+ likes: 0
  };
 
 Like.propTypes = {
-  count: PropTypes.number
+ likes: PropTypes.number
 };
 
 
@@ -91,16 +126,20 @@ Like.propTypes = {
 const BlogItem = (props) => (
   DOM.div(
     null,
-    React.createElement(Metax, 
+    React.createElement(
+       Meta, 
        props.meta),
-    React.createElement(Img, 
-       props.img ),
-    React.createElement(TextBox, 
-       {text: props.text}),
-    React.createElement(Like, 
+    React.createElement(
+       Img, 
+       props.image),
+    React.createElement(
+       TextBox,
+       null,                 
+       props.text),
+    React.createElement(
+       Like, 
        props.meta)
-    
- )
+  )
 ); 
 
 const BlogList = ( { items } ) => (
@@ -109,14 +148,10 @@ const BlogList = ( { items } ) => (
     _.map(
       items,
       (item, index) => (
-        DOM.li( {key: index}, 
-        React.createElement(BlogItem, {meta: { name: item.name, 
-                                       date_crtd: item.date_crtd,
-                                       date_upd: item.date_upd, count: item.count}, 
-                                       text: item.text, img: {src: item.src,
-                                       width: item.width,
-                                       alt: item.alt, ind: `${index}`
-                                                                            } }))
+        DOM.li( 
+         { key: index }, 
+         React.createElement(BlogItem, item)
+        )
       )
     )
   )
@@ -130,10 +165,12 @@ class BlogPage extends React.Component {
   
   render() {
     const{ posts } = this.state;
-    return React.createElement(BlogList, {items: posts})
-    }
+    return React.createElement(
+      BlogList, 
+      { items: posts }
+    )
+  }
 }
-
 
 ReactDOM.render(
  React.createElement(BlogPage),
