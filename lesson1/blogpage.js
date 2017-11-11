@@ -6,7 +6,7 @@ const formatDate = (date) => moment(date).format('DD-MM-YYYY')
 
 const posts = [
   { 
-      id: 15,
+      id: 1,
       image: {
            src: 'https://pp.userapi.com/c639828/v639828889/58af6/wrl1B46fCuE.jpg',
            alt: 'hi kitty'
@@ -18,7 +18,7 @@ const posts = [
         }
     },
   { 
-      id: 5,   
+      id: 3,   
       image: {
            alt: 'hi kitty'
          },
@@ -30,13 +30,14 @@ const posts = [
      text: 'Bye all'
     },
   {
-     id: 8, 
+     id: 7, 
      image: {
           src: 'https://pp.userapi.com/c405931/v405931356/39f/GWhaMm1iBVo.jpg',
           alt: 'hi kitty'
         },
      meta: {
          name: 'MAsha', 
+         likes: 0,
          dateCreated: formatDate('2017-09-07')
         },
      text: 'Nice day for'
@@ -94,17 +95,15 @@ const posts = [
    dateUpdated: PropTypes.string
  };
 
- class Like extends React.Component {
-   addLike = ( id ) => this.props.addLike(id);
+ const Like = (props) => {
    
-   render(){
       return(
           <div>
-           <span>Count: { this.props.likes }</span>
-           <button onClick={this.addLike(this.props.id)}>Like</button>
+           <span>Count: { props.likes }</span>
+           <button onClick={props.addLike}>Like</button>
           </div>
          ) 
-     }
+     
    
  };
 
@@ -133,7 +132,7 @@ const posts = [
                text),
         React.createElement(
                Like, 
-              { likes: meta.likes, addLike, id: id } )
+              { likes: meta.likes, addLike: addLike(id), id: id } )
       )
   ); 
 
@@ -163,17 +162,17 @@ const posts = [
   class BlogPage extends React.Component {
     constructor(props){
         super(props);
-        this.state = { posts };
+        this.state = { posts: props.posts };
         this.addLike = this.addLike.bind(this);  
       }
     
     addLike(id) {
-         this.setState((prevState) => {
-                const item = _.find(prevState.posts, ['id', id]);
-                item.meta.likes += 1;
-                return { posts: prevState.posts }
-              });
-       }
+       this.setState((prevState) => {
+          const item = _.find(prevState.posts, ['id', id]);
+          item.meta.likes += 1;
+          return { posts: prevState.posts }
+       });
+    }
     
     render() {
         return React.createElement(
@@ -184,9 +183,7 @@ const posts = [
   }
 
   ReactDOM.render(
-   React.createElement(
-      BlogPage
-    ),
+    <BlogPage posts= { posts } />,
     document.getElementById('app')
   )
 
