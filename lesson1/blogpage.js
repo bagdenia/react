@@ -1,4 +1,4 @@
-const { DOM, PropTypes } = React;
+const { DOM, PropTypes } = React
 const { bind } = _;
 
 const formatDate = (date) => moment(date).format('DD-MM-YYYY')
@@ -6,7 +6,8 @@ const formatDate = (date) => moment(date).format('DD-MM-YYYY')
 
 const posts = [
   { 
-   image: {
+    id: 15,
+    image: {
      src: 'https://pp.userapi.com/c639828/v639828889/58af6/wrl1B46fCuE.jpg',
      alt: 'hi kitty'
    },
@@ -17,7 +18,8 @@ const posts = [
    }
   },
   { 
-   image: {
+    id: 5,   
+    image: {
      alt: 'hi kitty'
    },
    meta: {
@@ -27,7 +29,8 @@ const posts = [
    },
    text: 'Bye all'
   },
-  { 
+  {
+   id: 8, 
    image: {
      src: 'https://pp.userapi.com/c405931/v405931356/39f/GWhaMm1iBVo.jpg',
      alt: 'hi kitty'
@@ -149,7 +152,7 @@ const BlogList = ( { items } ) => (
       items,
       (item, index) => (
         DOM.li( 
-         { key: index }, 
+         { key: item.id }, 
          React.createElement(BlogItem, item)
         )
       )
