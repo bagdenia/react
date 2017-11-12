@@ -95,12 +95,14 @@ const posts = [
    dateUpdated: PropTypes.string
  };
 
+
+
  const Like = (props) => {
    
       return(
           <div>
-           <span>Count: { props.likes }</span>
-           <button onClick={props.addLike}>Like</button>
+           <span>Count pop: { props.likes }</span>
+           <button onClick={() => this.addLike}>Like</button>
           </div>
          ) 
      
