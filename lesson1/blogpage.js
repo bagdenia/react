@@ -97,17 +97,18 @@ const posts = [
 
 
 
- const Like = (props) => {
-   
-      return(
-          <div>
-           <span>Count pop: { props.likes }</span>
-           <button onClick={() => this.addLike}>Like</button>
-          </div>
-         ) 
-     
-   
- };
+ const Like = ({ id, likes, addLike }) => {
+  const handleClick = (e) => {
+    addLike(id)
+  }
+  
+  return (
+    <div>
+      <span>Count pop: { likes }</span>
+      <button onClick={handleClick}>Like</button>
+    </div>
+  )
+};
 
  Like.defaultProps = {
   likes: 0
@@ -134,7 +135,7 @@ const posts = [
                text),
         React.createElement(
                Like, 
-              { likes: meta.likes, addLike: addLike(id), id: id } )
+              { likes: meta.likes, addLike: addLike, id: id } )
       )
   ); 
 
