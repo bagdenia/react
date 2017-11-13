@@ -36,8 +36,6 @@ const posts = [
           alt: 'hi kitty'
         },
      meta: {
-         name: 'MAsha', 
-         likes: 0,
          dateCreated: formatDate('2017-09-07')
         },
      text: 'Nice day for'
@@ -145,19 +143,19 @@ const posts = [
         _.map(
               items,
               (item) => (
-                      DOM.li( 
-                                     { key: item.id }, 
-                                     React.createElement(
-                                                BlogItem, 
-                                                { 
-                                                             meta: item.meta,
-                                                             image: item.image,
-                                                             text: item.text,
-                                                             addLike,
-                                                             id: item.id 
-                                                          })
-                                    )
-                    )
+                DOM.li( 
+                  { key: item.id }, 
+                  React.createElement(
+                    BlogItem, 
+                    { 
+                    meta: item.meta,
+                    image: item.image,
+                    text: item.text,
+                    addLike,
+                    id: item.id 
+                  })
+                )
+              )
             )
       )
   );
@@ -165,28 +163,65 @@ const posts = [
   class BlogPage extends React.Component {
     constructor(props){
         super(props);
-        this.state = { posts: props.posts };
+        const items = _.each(props.posts, function(e){
+          e.meta.likes ? e.meta.likes : e.meta.likes = 0; 
+          e.meta.name ? e.meta.name : e.meta.name = 'Noname'; 
+        });
+
+        this.state = { posts: items };
         this.addLike = this.addLike.bind(this);  
       }
     
     addLike(id) {
        this.setState((prevState) => {
           const item = _.find(prevState.posts, ['id', id]);
-          item.meta.likes += 1;
+          item.meta.likes+=1;
           return { posts: prevState.posts }
        });
     }
     
     render() {
-        return React.createElement(
-              BlogList, 
-              { items: this.state.posts, addLike: this.addLike }
-            )
-      }
+      const pieColumns = _.map(posts, item => [item.meta.name, 
+                                               item.meta.likes]);
+      return(
+      <div>  
+        <BlogList items ={this.state.posts} addLike = {this.addLike} />
+        <Chart columns = { pieColumns } />
+      </div>
+      )
+    }
   }
 
+  class Chart extends React.Component {
+    componentDidMount() {
+      this.chart = c3.generate({
+        bindto: ReactDOM.findDOMNode(this.refs.chart),
+        data: { 
+          columns: this.props.columns,
+          type : 'pie'
+        }
+      })
+    } 
+    
+    componentWillReceiveProps() {
+      this.chart.load({ columns: this.props.columns });
+    }
+    
+    componentWillUnmount() {
+      this.chart.destroy();
+    }
+    
+    render() {
+      return(
+       <div ref="chart" /> 
+      );
+    }
+
+  }  
+ 
+
   ReactDOM.render(
-    <BlogPage posts= { posts } />,
-    document.getElementById('app')
+      <BlogPage posts= { posts } />,
+      document.getElementById('app')
   )
 
