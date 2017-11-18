@@ -1,10 +1,13 @@
 const { DOM, PropTypes } = React
 const { bind } = _;
 
-const formatDate = (date) => moment(date).format('DD-MM-YYYY')
+const DEFAULT_DATE_FORMAT = 'DD.MM.YYYY';
 
+function formatDate(date) {
+  return moment(date).format(DEFAULT_DATE_FORMAT);
+}
 
-const posts = [
+const staticItems = [
   { 
       id: 1,
       image: {
@@ -43,63 +46,68 @@ const posts = [
  ];
 
 
- const Img = ({ src, height, width, alt }) => (
-   DOM.img({ src, height, width, alt })
- );
+const Image = ({ src, height, width, alt }) => (
+  DOM.img({ src, height, width, alt })
+);
 
- Img.defaultProps = {
-   src: 'https://pp.userapi.com/c5641/u5790356/134714790/x_d1448a03.jpg',
-   width: 200,
-   alt: 'default alt'
- };
+Image.defaultProps = {
+  src: 'https://pp.userapi.com/c5641/u5790356/134714790/x_d1448a03.jpg',
+  width: 200,
+  alt: 'default alt'
+};
 
- Img.propTypes = {
-   src: PropTypes.string,
-   width: PropTypes.number,
-   height: PropTypes.number,
-   alt: PropTypes.string
- };
-
- const TextBox = (props) => (
-   DOM.span(
-       null,
-       props.children
-     )
- ); 
-
- TextBox.defaultProps = {
-   children: 'Wat?'
- };
-
- TextBox.propTypes = {
-   children: PropTypes.string
- };
-
- const Meta = ({ name, dateCreated, dateUpdated }) => (
-   DOM.p(
-       null,
-       `Created by ${name} at ${dateCreated}, last modified at ${dateUpdated}`)
- );
-
- Meta.defaultProps = {
-   name: 'Vasya',
-   dateCreated: formatDate('2017-10-01'),
-   dateUpdated: formatDate('2017-10-04')
- };
-
- Meta.propTypes = {
-   name: PropTypes.string,
-   dateCreated: PropTypes.string,
-   dateUpdated: PropTypes.string
- };
+Image.propTypes = {
+  src: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  alt: PropTypes.string
+};
 
 
 
- const Like = ({ id, likes, addLike }) => {
+const TextBox = (props) => (
+  DOM.span(
+    null,
+    props.children
+  )
+); 
+
+TextBox.defaultProps = {
+  children: 'Wat?'
+};
+
+TextBox.propTypes = {
+  children: PropTypes.string
+};
+
+
+const Meta = ({ name, dateCreated, dateUpdated }) => (
+ DOM.p(
+     null,
+     `Created by ${name} at ${dateCreated}, last modified at ${dateUpdated}`)
+);
+
+Meta.defaultProps = {
+  name: 'Vasya',
+  dateCreated: formatDate('2017-10-01'),
+  dateUpdated: formatDate('2017-10-04')
+};
+
+Meta.propTypes = {
+  name: PropTypes.string,
+  dateCreated: PropTypes.string,
+  dateUpdated: PropTypes.string
+};
+
+
+
+
+
+const Like = ({ id, likes, addLike }) => {
   const handleClick = (e) => {
     addLike(id)
   }
-  
+
   return (
     <div>
       <span>Count pop: { likes }</span>
@@ -108,34 +116,36 @@ const posts = [
   )
 };
 
- Like.defaultProps = {
+Like.defaultProps = {
   likes: 0
-  };
+};
 
-  Like.propTypes = {
-   likes: PropTypes.number
-  };
+Like.propTypes = {
+  likes: PropTypes.number
+};
 
 
 
-  const BlogItem = ({meta, image, text, addLike, id}) => (
-    DOM.div(
-        null,
-        React.createElement(
-               Meta, 
-               meta),
-        React.createElement(
-               Img, 
-               image),
-        React.createElement(
-               TextBox,
-               null,                 
-               text),
-        React.createElement(
-               Like, 
-              { likes: meta.likes, addLike: addLike, id: id } )
-      )
-  ); 
+
+const BlogItem = ({meta, image, text, addLike, id}) => (
+  DOM.div(
+    null,
+    React.createElement(
+      Meta, 
+      meta),
+    React.createElement(
+      Image, 
+      image),
+    React.createElement(
+      TextBox,
+      null,
+      text),
+    React.createElement(
+      Like, 
+      { likes: meta.likes, addLike: addLike, id: id } )
+  )
+);
+ 
 
   const BlogList = ( { items, addLike } ) => (
     DOM.ul(
@@ -163,7 +173,7 @@ const posts = [
   class BlogPage extends React.Component {
     constructor(props){
         super(props);
-        const items = _.each(props.posts, function(e){
+        const items = _.each(staticItems, function(e){
           e.meta.likes ? e.meta.likes : e.meta.likes = 0; 
           e.meta.name ? e.meta.name : e.meta.name = 'Noname'; 
         });
@@ -181,47 +191,49 @@ const posts = [
     }
     
     render() {
-      const pieColumns = _.map(posts, item => [item.meta.name, 
+      const pieColumns = _.map(staticItems, item => [item.meta.name, 
                                                item.meta.likes]);
       return(
       <div>  
         <BlogList items ={this.state.posts} addLike = {this.addLike} />
-        <Chart columns = { pieColumns } />
+        <PieChart columns = { pieColumns } />
       </div>
       )
     }
   }
 
-  class Chart extends React.Component {
-    componentDidMount() {
-      this.chart = c3.generate({
-        bindto: ReactDOM.findDOMNode(this.refs.chart),
-        data: { 
-          columns: this.props.columns,
-          type : 'pie'
-        }
-      })
-    } 
-    
-    componentWillReceiveProps() {
-      this.chart.load({ columns: this.props.columns });
-    }
-    
-    componentWillUnmount() {
-      this.chart.destroy();
-    }
-    
-    render() {
-      return(
-       <div ref="chart" /> 
-      );
-    }
+class PieChart extends React.Component {
+  componentDidMount() {
+    this.chart = c3.generate({
+      bindto: ReactDOM.findDOMNode(this.refs.chart),
+      data: { 
+        columns: this.props.columns,
+        type : 'pie'
+      }
+    })
+  } 
 
-  }  
- 
+  componentWillReceiveProps() {
+    this.chart.load({ columns: this.props.columns });
+  }
+
+  componentWillUnmount() {
+    this.chart.destroy();
+  }
+
+  render() {
+    return(
+      <div ref="chart" /> 
+    );
+  }
+}  
+
+
+
+
 
   ReactDOM.render(
-      <BlogPage posts= { posts } />,
+      <BlogPage />,
       document.getElementById('app')
   )
 

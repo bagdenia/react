@@ -1,0 +1,35 @@
+{
+  "name": "blog4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bagdenia/react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bagdenia/react/issues"
+  },
+  "homepage": "https://github.com/bagdenia/react#readme",
+  "dependencies": {
+    "c3": "^0.4.18",
+    "d3": "^4.11.0",
+    "express": "^4.16.2",
+    "lodash": "^4.17.4",
+    "moment": "^2.19.2",
+    "prop-types": "^15.6.0",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-dom-factories": "^1.0.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0"
+  }
+}
