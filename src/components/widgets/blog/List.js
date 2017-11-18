@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import DOM from 'react-dom-factories'; 
 import _ from 'lodash';
 import BlogItem from './Item';
 
-const BlogList = ( { items, addLike } ) => (
+const BlogList = ({ items, addLike }) => (
   DOM.ul(
     {},
     _.map(
@@ -15,12 +14,12 @@ const BlogList = ( { items, addLike } ) => (
           React.createElement(
             BlogItem, 
             { 
-            meta: item.meta,
-            image: item.image,
-            text: item.text,
-            addLike,
-            id: item.id 
-          })
+              meta: item.meta,
+              image: item.image,
+              text: item.text,
+              addLike,
+              id: item.id 
+            })
         )
       )
     )

@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import DOM from 'react-dom-factories'; 
-import _ from 'lodash';
 
 import Meta from './elements/Meta';
 import Image from './elements/Image';

@@ -1,12 +1,11 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import DOM from 'react-dom-factories'; 
 import { formatDate } from 'helpers/date';
 
 const Meta = ({ name, dateCreated, dateUpdated }) => (
   DOM.p(
-     null,
-     `Created by ${name} at ${dateCreated}, last modified at ${dateUpdated}`)
+    null,
+    `Created by ${name} at ${dateCreated}, last modified at ${dateUpdated}`)
 );
 
 Meta.defaultProps = {
