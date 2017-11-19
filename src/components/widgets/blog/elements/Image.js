@@ -6,7 +6,7 @@ const Image = ({ src, height, width, alt }) => (
 );
 
 Image.defaultProps = {
-  src: 'dist/images/3.jpg',
+  src: 'dist/images/1.jpg',
   width: 200,
   alt: 'default alt'
 };
