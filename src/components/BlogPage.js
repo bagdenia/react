@@ -4,6 +4,7 @@ import { items as staticItems } from 'constants/static/items';
 import BlogList from 'components/widgets/blog/List';
 import PieChart from 'components/widgets/blog/PieChart';
 import _ from 'lodash';
+import { Container } from 'semantic-ui-react';
 
 
 class BlogPage extends React.Component {
@@ -30,10 +31,10 @@ class BlogPage extends React.Component {
     const pieColumns = _.map(staticItems, item => [item.meta.name, 
       item.meta.likes]);
     return(
-      <div>  
+      <Container>  
         <BlogList items ={this.state.posts} addLike = {this.addLike} />
         <PieChart columns = { pieColumns } />
-      </div>
+      </Container>
     );
   }
 }

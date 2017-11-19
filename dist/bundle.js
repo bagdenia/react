@@ -52818,7 +52818,7 @@ var Image = function Image(_ref) {
 };
 
 Image.defaultProps = {
-  src: 'dist/images/1.jpg',
+  src: 'dist/images/3.jpg',
   width: 200,
   alt: 'default alt'
 };

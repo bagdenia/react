@@ -2,6 +2,7 @@ import React from 'react';
 import DOM from 'react-dom-factories'; 
 import _ from 'lodash';
 import BlogItem from './Item';
+import { Segment } from 'semantic-ui-react';
 
 const BlogList = ({ items, addLike }) => (
   DOM.ul(
@@ -9,17 +10,21 @@ const BlogList = ({ items, addLike }) => (
     _.map(
       items,
       (item) => (
-        DOM.li( 
+        DOM.div( 
           { key: item.id }, 
           React.createElement(
-            BlogItem, 
-            { 
-              meta: item.meta,
-              image: item.image,
-              text: item.text,
-              addLike,
-              id: item.id 
-            })
+            Segment,
+            null,
+            React.createElement(
+              BlogItem, 
+              { 
+                meta: item.meta,
+                image: item.image,
+                text: item.text,
+                addLike,
+                id: item.id 
+              })
+          )
         )
       )
     )
