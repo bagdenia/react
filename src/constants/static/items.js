@@ -4,7 +4,7 @@ export const items = [
   { 
     id: 1,
     image: {
-      src: 'https://pp.userapi.com/c639828/v639828889/58af6/wrl1B46fCuE.jpg',
+      src: 'dist/images/1.jpg',
       alt: 'hi kitty'
     },
     meta: {
@@ -28,7 +28,7 @@ export const items = [
   {
     id: 7, 
     image: {
-      src: 'https://pp.userapi.com/c405931/v405931356/39f/GWhaMm1iBVo.jpg',
+      src: 'dist/images/2.jpg',
       alt: 'hi kitty'
     },
     meta: {

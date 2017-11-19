@@ -6,7 +6,7 @@ const Image = ({ src, height, width, alt }) => (
 );
 
 Image.defaultProps = {
-  src: 'https://pp.userapi.com/c5641/u5790356/134714790/x_d1448a03.jpg',
+  src: 'dist/images/3.jpg',
   width: 200,
   alt: 'default alt'
 };
