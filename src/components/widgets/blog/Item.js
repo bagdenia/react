@@ -21,7 +21,7 @@ const BlogItem = ({meta, image, text, addLike, id}) => (
       text),
     React.createElement(
       Like, 
-      { likes: meta.likes, addLike: addLike, id: id } )
+      { likes: meta.likes, addLike, id })
   )
 );
 

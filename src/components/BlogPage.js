@@ -8,9 +8,9 @@ import { Container } from 'semantic-ui-react';
 
 
 class BlogPage extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    const items = _.each(staticItems, function(e){
+    const items = _.each(staticItems, function(e) {
       e.meta.likes ? e.meta.likes : e.meta.likes = 0; 
       e.meta.name ? e.meta.name : e.meta.name = 'Noname'; 
     });
@@ -22,7 +22,7 @@ class BlogPage extends React.Component {
   addLike(id) {
     this.setState((prevState) => {
       const item = _.find(prevState.posts, ['id', id]);
-      item.meta.likes+=1;
+      item.meta.likes += 1;
       return { posts: prevState.posts };
     });
   }
@@ -30,7 +30,7 @@ class BlogPage extends React.Component {
   render() {
     const pieColumns = _.map(staticItems, item => [item.meta.name, 
       item.meta.likes]);
-    return(
+    return (
       <Container>  
         <BlogList items ={this.state.posts} addLike = {this.addLike} />
         <PieChart columns = { pieColumns } />

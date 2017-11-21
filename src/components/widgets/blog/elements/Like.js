@@ -20,7 +20,10 @@ Like.defaultProps = {
 };
 
 Like.propTypes = {
-  likes: PropTypes.number
+  likes: PropTypes.number,
+  id: PropTypes.number,
+  addLike: PropTypes.func
 };
+
 
 export default Like;
