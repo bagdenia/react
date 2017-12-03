@@ -4,7 +4,7 @@ export const items = [
   { 
     id: 1,
     image: {
-      src: 'dist/images/1.jpg',
+      src: '/dist/images/1.jpg',
       alt: 'hi kitty'
     },
     meta: {
@@ -14,8 +14,9 @@ export const items = [
     }
   },
   { 
-    id: 3,   
+    id: 2,   
     image: {
+      src: '/dist/images/2.jpg',
       alt: 'hi kitty'
     },
     meta: {
@@ -26,9 +27,9 @@ export const items = [
     text: 'Bye all'
   },
   {
-    id: 7, 
+    id: 3, 
     image: {
-      src: 'dist/images/2.jpg',
+      src: '/dist/images/3.jpg',
       alt: 'hi kitty'
     },
     meta: {
