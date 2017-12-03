@@ -1,17 +1,25 @@
 import React from 'react';
 import BlogPage from 'components/BlogPage';
-import { Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Post from 'components/Post';
-import { postsPath } from 'helpers/routes/index'; 
+import { postsPath, rootPath } from 'helpers/routes/index'; 
 
-const routes = [
-  { path: postsPath(),
-    component: Post
-  },
-  { path: '/',
-    component: BlogPage,
-  }
-];
+
+const routes = () => (
+  <Switch>
+    <Route exact path= { rootPath() } component={BlogPage}/>
+    <Route path= { postsPath() } component={Post}/>
+  </Switch>
+);
+
+// const routes = [
+//   { path: postsPath(),
+//     component: Post
+//   },
+//   { path: rootPath(),
+//     component: BlogPage,
+//   }
+// ];
 
 export default routes;
 
