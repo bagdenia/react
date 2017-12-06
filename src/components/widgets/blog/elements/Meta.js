@@ -5,7 +5,8 @@ import { formatDate } from 'helpers/date';
 const Meta = ({ name, dateCreated, dateUpdated }) => (
   DOM.p(
     null,
-    `Created by ${name} at ${dateCreated}, last modified at ${dateUpdated}`)
+    `Created by ${name} at ${formatDate(dateCreated)}, 
+                      last modified at ${dateUpdated}`)
 );
 
 Meta.defaultProps = {

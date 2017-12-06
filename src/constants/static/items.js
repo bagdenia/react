@@ -1,5 +1,3 @@
-import { formatDate } from 'helpers/date';
-
 export const items = [
   { 
     id: 1,
@@ -10,7 +8,7 @@ export const items = [
     meta: {
       name: 'Fedya', 
       likes: 4,
-      dateCreated: formatDate('2017-10-02')
+      dateCreated: '2017-10-02'
     }
   },
   { 
@@ -22,7 +20,7 @@ export const items = [
     meta: {
       name: 'Vasya', 
       likes: 7,
-      dateCreated: formatDate('2017-09-07')
+      dateCreated: '2017-09-07'
     },
     text: 'Bye all'
   },
@@ -33,7 +31,7 @@ export const items = [
       alt: 'hi kitty'
     },
     meta: {
-      dateCreated: formatDate('2017-09-07')
+      dateCreated: '2017-09-07'
     },
     text: 'Nice day for'
   }

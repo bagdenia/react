@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 
 const Like = ({ id, likes, addLike }) => {
   const handleClick = () => {
@@ -9,8 +9,8 @@ const Like = ({ id, likes, addLike }) => {
 
   return (
     <div>
-      <span>Count pop: { likes }</span>
-      <Button primary size ='mini' onClick={handleClick}>Like</Button>
+      <Icon name = 'like' onClick = {handleClick} />
+      <span>{ likes }</span>
     </div>
   );
 };

@@ -1,23 +1,25 @@
 import React from 'react';
 
-import { items as staticItems } from 'constants/static/items';
+// import { items as staticItems } from 'constants/static/items';
 import BlogList from 'components/widgets/blog/List';
 import PieChart from 'components/widgets/blog/PieChart';
 import _ from 'lodash';
 import { Container } from 'semantic-ui-react';
+import request from 'superagent';
 
 
 class BlogPage extends React.Component {
   constructor(props) {
     super(props);
-    const items = _.each(staticItems, function(e) {
-      e.meta.likes ? e.meta.likes : e.meta.likes = 0; 
-      e.meta.name ? e.meta.name : e.meta.name = 'Noname'; 
-    });
-
-    this.state = { posts: items };
+    this.state = { posts: [] };
     this.addLike = this.addLike.bind(this);  
   }
+
+  componentDidMount() {
+    this.fetchPosts();
+    console.log('Component did mount', this.state.posts);
+  }
+  
   
   addLike(id) {
     this.setState((prevState) => {
@@ -26,13 +28,29 @@ class BlogPage extends React.Component {
       return { posts: prevState.posts };
     });
   }
-  
+
+  fetchPosts() {
+    request.get(
+      'http://localhost:5001/',
+      {},
+      (err, res) => {
+        const items = _.each(res.body, function(e) {
+          e.meta.likes ? e.meta.likes : e.meta.likes = 0; 
+          e.meta.name ? e.meta.name : e.meta.name = 'Noname'; 
+        });
+        this.setState({ posts: items });
+      }
+    );
+  }
+
   render() {
-    const pieColumns = _.map(staticItems, item => [item.meta.name, 
+    console.log('Render', this.state.posts);
+    const posts = this.state.posts;
+    const pieColumns = _.map(posts, item => [item.meta.name, 
       item.meta.likes]);
     return (
       <Container>  
-        <BlogList items ={this.state.posts} addLike = {this.addLike} />
+        <BlogList items ={ posts } addLike = {this.addLike} />
         <PieChart columns = { pieColumns } />
       </Container>
     );
