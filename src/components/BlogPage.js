@@ -17,7 +17,6 @@ class BlogPage extends React.Component {
 
   componentDidMount() {
     this.fetchPosts();
-    console.log('Component did mount', this.state.posts);
   }
   
   
@@ -44,7 +43,6 @@ class BlogPage extends React.Component {
   }
 
   render() {
-    console.log('Render', this.state.posts);
     const posts = this.state.posts;
     const pieColumns = _.map(posts, item => [item.meta.name, 
       item.meta.likes]);
