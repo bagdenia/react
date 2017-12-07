@@ -4,7 +4,7 @@ import React from 'react';
 import BlogList from 'components/widgets/blog/List';
 import PieChart from 'components/widgets/blog/PieChart';
 import _ from 'lodash';
-import { Container } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 import request from 'superagent';
 
 
@@ -47,12 +47,17 @@ class BlogPage extends React.Component {
     const pieColumns = _.map(posts, item => [item.meta.name, 
       item.meta.likes]);
     return (
-      <Container>  
-        <BlogList items ={ posts } addLike = {this.addLike} />
-        <PieChart columns = { pieColumns } />
-      </Container>
+      <Segment.Group horizontal>  
+        <Segment>
+          <BlogList items ={ posts } addLike = {this.addLike} />
+        </Segment>
+        <Segment>
+          <PieChart columns = { pieColumns } />
+        </Segment>
+      </Segment.Group>
     );
   }
 }
 
 export default BlogPage;
+

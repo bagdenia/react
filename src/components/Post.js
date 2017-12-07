@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Item } from 'semantic-ui-react';
+import { Segment, Item } from 'semantic-ui-react';
 import BlogItem from 'components/widgets/blog/Item';
 import request from 'superagent';
 
@@ -31,14 +31,16 @@ class Post extends React.Component {
     const item = this.state.post;
     if (item.id) {
       return (
-        <Item.Group>
-          <BlogItem 
-            meta = { item.meta }
-            image = { item.image }
-            text = { item.text }
-            id = {item.id }
-          />
-        </Item.Group>
+        <Segment>
+          <Item.Group>
+            <BlogItem 
+              meta = { item.meta }
+              image = { item.image }
+              text = { item.text }
+              id = {item.id }
+            />
+          </Item.Group>
+        </Segment>
       );
     }
     else {
