@@ -4,7 +4,7 @@ import React from 'react';
 import BlogList from 'components/widgets/blog/List';
 import PieChart from 'components/widgets/blog/PieChart';
 import _ from 'lodash';
-import { Segment } from 'semantic-ui-react';
+import { Input, Segment } from 'semantic-ui-react';
 import request from 'superagent';
 
 
@@ -12,11 +12,19 @@ class BlogPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = { posts: [] };
+    this.itemsForSearch = [];
     this.addLike = this.addLike.bind(this);  
+    this.handleResultSelect = this.handleResultSelect.bind(this);
   }
 
   componentDidMount() {
     this.fetchPosts();
+  }
+
+  handleResultSelect(e) {
+    this.setState({ 
+      posts: this.itemsForSearch.filter((post) => 
+        post.text.match(new RegExp(e.currentTarget.value,'i'))) });
   }
   
   
@@ -38,6 +46,7 @@ class BlogPage extends React.Component {
           e.meta.name ? e.meta.name : e.meta.name = 'Noname'; 
         });
         this.setState({ posts: items });
+        this.itemsForSearch = items;
       }
     );
   }
@@ -52,6 +61,10 @@ class BlogPage extends React.Component {
           <BlogList items ={ posts } addLike = {this.addLike} />
         </Segment>
         <Segment>
+          <Input 
+            icon='search' 
+            placeholder='Search...' 
+            onChange={this.handleResultSelect}/>
           <PieChart columns = { pieColumns } />
         </Segment>
       </Segment.Group>
