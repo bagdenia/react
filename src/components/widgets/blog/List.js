@@ -4,7 +4,7 @@ import _ from 'lodash';
 import BlogItem from './Item';
 import { Item } from 'semantic-ui-react';
 
-const BlogList = ({ items, addLike }) => (
+const BlogList = ({ items }) => (
   DOM.div(
     {},
     _.map(
@@ -18,7 +18,6 @@ const BlogList = ({ items, addLike }) => (
               meta: item.meta,
               image: item.image,
               text: item.text,
-              addLike,
               id: item.id 
             })
         )

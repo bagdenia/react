@@ -3,13 +3,9 @@ import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
 const Like = ({ id, likes, addLike }) => {
-  const handleClick = () => {
-    addLike(id);
-  };
-
   return (
     <div>
-      <Icon name = 'like' onClick = {handleClick} />
+      <Icon name = 'like' onClick = { () => addLike(id) } />
       <span>{ likes }</span>
     </div>
   );

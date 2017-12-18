@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Meta from './elements/Meta';
 import Image from './elements/Image';
 import TextBox from './elements/TextBox';
-import Like from './elements/Like';
+import LikeContainer from 'containers/LikeContainer';
 import Link from 'components/elements/Link';
 import { postsPath } from 'helpers/routes/index';
 import { Card, Image as ImageSem } from 'semantic-ui-react';
 
-const BlogItem = ({meta, image, text, addLike, id}) => (
+const BlogItem = ({meta, image, text, id}) => (
   <div>
     <Card>
       <Card.Content>
@@ -22,7 +22,7 @@ const BlogItem = ({meta, image, text, addLike, id}) => (
         <TextBox children = { text } />
       </Card.Content>
       <Card.Content extra>
-        <Like likes = { meta.likes } addLike = { addLike } id = { id } /> 
+        <LikeContainer likes = { meta.likes } id = { id } /> 
       </Card.Content>
     </Card>
   </div>

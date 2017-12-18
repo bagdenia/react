@@ -1,35 +1,41 @@
 import React from 'react';
-import BlogPage from 'components/BlogPage';
-import { Switch, Route } from 'react-router-dom';
-import Post from 'components/Post';
+import { Route } from 'react-router-dom';
+import PostContainer from 'containers/PostContainer';
+import PostsContainer from 'containers/PostsContainer';
 import About from 'components/About';
 import { aboutPath, postsPath, rootPath } from 'helpers/routes/index'; 
+import { fetchPosts } from 'actions/Posts';
+import { fetchPost } from 'actions/Post';
 
-
-const routes = () => (
-  <Switch>
-    <Route exact path= { rootPath() } component={BlogPage}/>
-    <Route path= { postsPath() } component={Post}/>
-    <Route path= { aboutPath() } component={About}/>
-  </Switch>
-);
-
-// const routes = [
-//   { path: postsPath(),
-//     component: Post
-//   },
-//   { path: rootPath(),
-//     component: BlogPage,
-//   }
-// ];
-
-export default routes;
+const routes = [
+  {
+    path: rootPath(),
+    component: PostsContainer,
+    loadData: (store) => {
+      store.dispatch(fetchPosts());
+    },
+    exact: true
+  },
+  {
+    path: postsPath(),
+    component: PostContainer,
+    loadData: (store, query, params) => {
+      store.dispatch(fetchPost(params.id));
+    }
+  },
+  {
+    path: aboutPath(),
+    component: About,
+  }
+];
 
 const RouteWithSubRoutes = (route) => (
-  <Route path={route.path} render={props => (
+  <Route exact={route.exact} strict={route.exact} path={route.path} 
+    render={props => (
     // pass the sub-routes down to keep nesting
-    <route.component {...props} routes={route.routes}/>
-  )}/>
+      <route.component {...props} routes={route.routes}/>
+    )}/>
 );
 
+export default routes;
 export { RouteWithSubRoutes };
