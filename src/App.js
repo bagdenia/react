@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import store from 'store';
 import { matchPath, Router } from 'react-router';
 import history from 'helpers/History';
-import _ from 'lodash';
+import { assign } from 'lodash';
 import prepareData from 'helpers/prepareData';
 import DevTools from 'containers/DevTools';
 import { parse } from 'qs';
@@ -20,8 +20,8 @@ function historyCb(location) {
     if (match)
     {
       state.routes.push(route);
-      _.assign(state.params, match.params);
-      _.assign(state.query, parse(location.search.substr(1)));
+      assign(state.params, match.params);
+      assign(state.query, parse(location.search.substr(1)));
       prepareData(store, state);
     }
     return match;

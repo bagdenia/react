@@ -1,7 +1,7 @@
 import { assign } from 'lodash/object';
 import * as types from 'constants/actionTypes/PostActionTypes';
 import * as likeTypes from 'constants/actionTypes/LikeActionTypes';
-import _ from 'lodash';
+import { cloneDeep } from 'lodash';
 
 const initialState = {
   isFetching: false,
@@ -25,7 +25,7 @@ export default function(state = initialState, action) {
     case types.FETCH_POST_SUCCESS:
       return assign({}, initialState, { entry: action.response });
     case likeTypes.ADD_LIKE: {
-      const entry = _.cloneDeep(state.entry);
+      const entry = cloneDeep(state.entry);
       return assign({}, initialState, { entry: addLike(entry) });
     }
     default: 

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import BlogList from 'components/widgets/blog/List';
 import PieChart from 'components/widgets/blog/PieChart';
 import SearchContainer from 'containers/SearchContainer';
-import _ from 'lodash';
+import { map } from 'lodash';
 import { Segment } from 'semantic-ui-react';
 
 
@@ -15,8 +15,10 @@ class Posts extends React.Component {
 
   render() {
     const items = this.props.items;
-    const pieColumns = _.map(this.props.items, item => [item.meta.name, 
-      item.meta.likes]);
+    const pieColumns = map(
+      this.props.items, 
+      item => [item.meta.name, item.meta.likes]
+    );
     return (
       <Segment.Group horizontal>  
         <Segment>

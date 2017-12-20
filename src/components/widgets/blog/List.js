@@ -1,13 +1,13 @@
 import React from 'react';
 import DOM from 'react-dom-factories'; 
-import _ from 'lodash';
+import { map } from 'lodash';
 import BlogItem from './Item';
 import { Item } from 'semantic-ui-react';
 
 const BlogList = ({ items }) => (
   DOM.div(
     {},
-    _.map(
+    map(
       items,
       (item) => (
         React.createElement(Item.Group,
