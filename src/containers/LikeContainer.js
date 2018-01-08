@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Like from 'components/widgets/blog/elements/Like';
-import  addLike from 'actions/Like';
+import  { fetchPost as addLike } from 'actions/Like';
 
 const stateToProps = (state, ownProps) => ({
   likes: ownProps.likes,

@@ -1,7 +1,6 @@
 import { assign } from 'lodash/object';
 import * as types from 'constants/actionTypes/PostActionTypes';
 import * as likeTypes from 'constants/actionTypes/LikeActionTypes';
-import { cloneDeep } from 'lodash';
 
 const initialState = {
   isFetching: false,
@@ -9,24 +8,22 @@ const initialState = {
   entry: null
 };
 
-function addLike(entry) {
-  if (entry) {
-    entry.meta.likes += 1;
-    return entry;
-  }
-}
-
 export default function(state = initialState, action) {
   switch (action.type) {
     case types.FETCH_POST_REQUEST:
-      return assign({}, initialState, { isFetching: true });
+      return assign({}, state, { isFetching: true });
     case types.FETCH_POST_ERROR:
-      return assign({}, initialState, { error: true });
+      return assign({}, state, { error: true });
     case types.FETCH_POST_SUCCESS:
-      return assign({}, initialState, { entry: action.response });
-    case likeTypes.ADD_LIKE: {
-      const entry = cloneDeep(state.entry);
-      return assign({}, initialState, { entry: addLike(entry) });
+      return assign({}, state, { entry: action.response });
+    case likeTypes.FETCH_LIKE_REQUEST: 
+      return assign({}, state, { isFetching: true });
+    case likeTypes.FETCH_LIKE_ERROR:
+      return assign({}, state, { error: true });
+    case likeTypes.FETCH_LIKE_SUCCESS: {
+      return assign({}, state, { 
+        entry: action.response 
+      });
     }
     default: 
       return state;

@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
-const Like = ({ id, likes, addLike }) => {
-  return (
-    <div>
-      <Icon name = 'like' onClick = { () => addLike(id) } />
-      <span>{ likes }</span>
-    </div>
-  );
-};
+const Like = ({ id, likes, addLike }) => (
+  <div>
+    <Icon name = 'like' onClick = { () => addLike(id) } />
+    <span>{ likes }</span>
+  </div>
+);
 
 Like.defaultProps = {
   likes: 0
