@@ -9,6 +9,8 @@ import prepareData from 'helpers/prepareData';
 import createStore from 'store';
 import routes, { RouteWithSubRoutes } from 'routes';
 
+import Helmet from 'react-helmet';
+
 const store = createStore();
 
 export default (req, res) => {
@@ -44,7 +46,10 @@ export default (req, res) => {
         </StaticRouter>
       </Provider>
     );
+
+    const head = Helmet.rewind();
+
     res.status(200);
-    res.render('index', { initialState, content });
+    res.render('index', { initialState, content, head });
   });
 };

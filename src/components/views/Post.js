@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Segment, Item } from 'semantic-ui-react';
 import BlogItem from 'components/widgets/blog/Item';
+import Helmet from 'react-helmet';
 
 const Post = ({ item }) => ( 
   <Segment>
@@ -12,7 +13,9 @@ const Post = ({ item }) => (
         text = { item.text }
         id = {item.id }
       /> }
+      { item && <Helmet title={item.text} /> }
     </Item.Group>
+
   </Segment>
 );
 

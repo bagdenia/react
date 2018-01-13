@@ -5,6 +5,7 @@ import Helmet from 'react-helmet';
 const Index = ({ items }) => (
   <div>
     <Posts items={items} />
+    <Helmet title='Список постов' />
   </div>
 );
 
