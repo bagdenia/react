@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import PostContainer from 'containers/PostContainer';
 import PostsContainer from 'containers/PostsContainer';
-import About from 'components/About';
+import About from 'components/views/About';
 import { aboutPath, postsPath, rootPath } from 'helpers/routes/index'; 
 import { fetchPosts } from 'actions/Posts';
 import { fetchPost } from 'actions/Post';
