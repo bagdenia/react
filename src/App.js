@@ -3,7 +3,7 @@ import MainLayout from 'components/layouts/MainLayout';
 import ReactDOM from 'react-dom';
 import routes, { RouteWithSubRoutes } from 'routes/index';
 import { Provider } from 'react-redux';
-import store from 'store';
+import createStore from 'store';
 import { matchPath, Router } from 'react-router';
 import history from 'helpers/History';
 import { assign } from 'lodash';
@@ -11,6 +11,8 @@ import prepareData from 'helpers/prepareData';
 import DevTools from 'containers/DevTools';
 import { parse } from 'qs';
  
+const store = createStore(window.__INITIAL_STATE__);
+
 function historyCb(location) {
   const state = { params: {}, routes: [], query: {} };
 
@@ -50,7 +52,8 @@ const App = () => (
 
 ReactDOM.render(
   <DevTools store ={store} />,
-  document.getElementById('devtools')
+  document.getElementById('devtools'),
+  () => { delete window.__INITIAL_STATE__; }
 );
 
  

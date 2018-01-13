@@ -6,13 +6,15 @@ import About from 'components/About';
 import { aboutPath, postsPath, rootPath } from 'helpers/routes/index'; 
 import { fetchPosts } from 'actions/Posts';
 import { fetchPost } from 'actions/Post';
+import initialLoad from 'helpers/initialLoad';
 
 const routes = [
   {
     path: rootPath(),
     component: PostsContainer,
     loadData: (store) => {
-      store.dispatch(fetchPosts());
+      if (initialLoad()) return;
+      return store.dispatch(fetchPosts());
     },
     exact: true
   },
@@ -20,7 +22,8 @@ const routes = [
     path: postsPath(),
     component: PostContainer,
     loadData: (store, query, params) => {
-      store.dispatch(fetchPost(params.id));
+      if (initialLoad()) return;
+      return store.dispatch(fetchPost(params.id));
     }
   },
   {
