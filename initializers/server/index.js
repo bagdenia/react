@@ -6,6 +6,7 @@ require('babel-core/register');
 require.extensions['.css'] = () => {
   return;
 };
+var morgan = require('morgan');
 
 const host = 'localhost';
 const port = 5000;
@@ -14,6 +15,7 @@ const express = require('express');
 
 const application = express();
 
+application.use(morgan('combined'));
 application.use(express.static('src/static'));
 
 application.set('views', __dirname);
