@@ -3,10 +3,12 @@ import { Route } from 'react-router-dom';
 import PostContainer from 'containers/PostContainer';
 import PostsContainer from 'containers/PostsContainer';
 import About from 'components/views/About';
-import { aboutPath, postsPath, rootPath } from 'helpers/routes/index'; 
+import Contacts from 'components/views/Contacts';
+import { aboutPath, postsPath, rootPath, contactsPath, editPostPath} from 'helpers/routes/index'; 
 import { fetchPosts } from 'actions/Posts';
 import { fetchPost } from 'actions/Post';
 import initialLoad from 'helpers/initialLoad';
+import EditPostFormContainer from 'containers/EditPostFormContainer';
 
 const routes = [
   {
@@ -29,6 +31,18 @@ const routes = [
   {
     path: aboutPath(),
     component: About,
+  },
+  {
+    path: contactsPath(),
+    component: Contacts,
+  },
+  {
+    path: editPostPath(),
+    component: EditPostFormContainer,
+    loadData: (store, query, params) => {
+      if (initialLoad()) return;
+      return store.dispatch(fetchPost(params.id));
+    }
   }
 ];
 

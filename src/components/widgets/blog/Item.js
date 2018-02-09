@@ -5,7 +5,7 @@ import Image from './elements/Image';
 import TextBox from './elements/TextBox';
 import LikeContainer from 'containers/LikeContainer';
 import Link from 'components/elements/Link';
-import { postsPath } from 'helpers/routes/index';
+import { postsPath, editPostPath } from 'helpers/routes/index';
 import { Card, Image as ImageSem } from 'semantic-ui-react';
 
 const BlogItem = ({meta, image, text, id}) => (
@@ -23,6 +23,7 @@ const BlogItem = ({meta, image, text, id}) => (
       </Card.Content>
       <Card.Content extra>
         <LikeContainer likes = { meta.likes } id = { id } /> 
+        <Link to = { editPostPath(id)}>Edit</Link>
       </Card.Content>
     </Card>
   </div>

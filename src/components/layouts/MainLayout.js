@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Segment, Header, Container } from 'semantic-ui-react';
 import Link from 'components/elements/Link';
-import { aboutPath, rootPath } from 'helpers/routes/index';
+import { aboutPath, rootPath, contactsPath } from 'helpers/routes/index';
 
 const MainLayout = ({ children }) => (
   <Container>
@@ -27,6 +27,9 @@ const Logo = () => (
     </Segment>
     <Segment>
       <Link to  = { aboutPath()}>About</Link>
+    </Segment>
+    <Segment>
+      <Link to={contactsPath()}>Contacts</Link>
     </Segment>
   </Segment.Group>
 );

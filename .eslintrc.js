@@ -49,7 +49,7 @@ module.exports = {
     "camelcase": 1,
     "import/max-dependencies": ["warn", {"max": 10}],
     "keyword-spacing": 1,
-    "max-len": ["error", 80, 2],
+    "max-len": ["error", 100, 2],
     "newline-per-chained-call": 1,
     "no-negated-condition": 1,
     "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1, "maxBOF": 0 }],

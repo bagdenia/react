@@ -1,11 +1,13 @@
 import { assign } from 'lodash/object';
 import * as types from 'constants/actionTypes/PostActionTypes';
 import * as likeTypes from 'constants/actionTypes/LikeActionTypes';
+import * as editTypes from 'constants/actionTypes/EditPostActionTypes';
 
 const initialState = {
   isFetching: false,
   error: false,
-  entry: null
+  entry: null,
+  validationErrors: {},
 };
 
 export default function(state = initialState, action) {
@@ -25,6 +27,12 @@ export default function(state = initialState, action) {
         entry: action.response 
       });
     }
+    case editTypes.UPDATE_POST_REQUEST:
+      return assign({}, state, { isFetching: true });
+    case editTypes.UPDATE_POST_ERROR:
+      return assign({}, state, { validationErrors: action.error.response.body });
+    case editTypes.UPDATE_POST_SUCCESS:
+      return assign({}, state, { entry: action.response });
     default: 
       return state;
   }
